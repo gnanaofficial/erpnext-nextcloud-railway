@@ -12,13 +12,15 @@ services:
       MYSQL_PASSWORD: erpnextpass
     volumes:
       - mariadb_data:/var/lib/mysql
-
+    
   erpnext:
-    image: frappe/erpnext:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: erpnext-app
     restart: always
     ports:
-      - "8000:80"  # Corrected port to avoid conflict
+      - "8000:8000"  # ERPNext uses port 8000 internally
     environment:
       SITE_NAME: erp.example.com
       DB_HOST: mariadb
@@ -30,12 +32,8 @@ services:
       DB_PASSWORD: erpnextpass
     depends_on:
       - mariadb
-    restart: always
 
 volumes:
   mariadb_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /var/lib/erpnext-db  # Corrected volume mount path
-      o: bind
+    # Using a named volume managed by Docker/Railway
+    # Removed the absolute path which won't work on Railway
