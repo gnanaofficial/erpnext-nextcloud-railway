@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mariadb:
@@ -12,7 +12,7 @@ services:
       MYSQL_PASSWORD: erpnextpass
     volumes:
       - mariadb_data:/var/lib/mysql
-    
+
   erpnext:
     build:
       context: .
@@ -20,14 +20,14 @@ services:
     container_name: erpnext-app
     restart: always
     ports:
-      - "8000:8000"  # ERPNext uses port 8000 internally
+      - "8000:8000" # ERPNext uses port 8000 internally
     environment:
       SITE_NAME: erp.example.com
       DB_HOST: mariadb
       DB_PORT: 3306
       DB_ROOT_USER: root
       DB_ROOT_PASSWORD: erpnextpass
-      DB_NAME: admin
+      DB_NAME: erpnext
       DB_USER: erpuser
       DB_PASSWORD: erpnextpass
     depends_on:
