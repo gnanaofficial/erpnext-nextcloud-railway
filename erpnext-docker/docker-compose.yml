@@ -23,7 +23,7 @@ services:
       - "8000:8000" # ERPNext uses port 8000 internally
     environment:
       SITE_NAME: erp.example.com
-      DB_HOST: mariadb
+      MARIADB_HOST: mariadb
       DB_PORT: 3306
       DB_ROOT_USER: root
       DB_ROOT_PASSWORD: erpnextpass
