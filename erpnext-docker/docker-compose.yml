@@ -25,7 +25,7 @@ services:
       DB_PORT: 3306
       DB_ROOT_USER: root
       DB_ROOT_PASSWORD: erpnextpass
-      DB_NAME: erpnext
+      DB_NAME: admin
       DB_USER: erpuser
       DB_PASSWORD: erpnextpass
     depends_on:
