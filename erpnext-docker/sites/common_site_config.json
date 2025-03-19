@@ -1,0 +1,10 @@
+{
+  "db_host": "mariadb",
+  "db_port": "3306",
+  "db_name": "erpnext",
+  "db_user": "erpuser",
+  "db_password": "erpnextpass",
+  "redis_cache": "redis://redis-cache:6379",
+  "redis_queue": "redis://redis-queue:6379",
+  "redis_socketio": "redis://redis-socketio:6379"
+}

@@ -1,4 +1,7 @@
-.git
-node_modules
-__pycache__
-.env
+*.pyc
+*.pyo
+__pycache__/
+*.swp
+*.swo
+*.swn
+sites/*    # REMOVE this line if it exists

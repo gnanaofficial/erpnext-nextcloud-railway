@@ -3,7 +3,7 @@ FROM frappe/erpnext-worker:v13
 
 WORKDIR /home/frappe/frappe-bench
 
-# Create necessary files for ERPNext
+# Create the sites directory and add required files
 RUN mkdir -p sites && \
     echo "frappe" > sites/apps.txt && \
     echo "erpnext" >> sites/apps.txt && \
@@ -20,16 +20,15 @@ RUN mkdir -p sites && \
 }
 EOF
 
-# Set correct permissions
+# Copy local sites to container
+COPY sites /home/frappe/frappe-bench/sites/
+
+# Set ownership and permissions
 RUN chown -R frappe:frappe /home/frappe/frappe-bench/sites && \
     chmod -R 755 /home/frappe/frappe-bench/sites
 
-# Set environment variables
-ENV MARIADB_HOST=mariadb
-ENV DB_PORT=3306
-ENV DB_USER=erpuser
-ENV DB_PASSWORD=erpnextpass
-ENV DB_NAME=erpnext
+# Expose required ports
+EXPOSE 8000 9000 6787
 
-# Start ERPNext
+# Run ERPNext
 CMD ["bench", "start"]
