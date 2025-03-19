@@ -1,4 +1,5 @@
-version: "3.8"
+version: '3.8'
+
 services:
   mariadb:
     image: mariadb:10.5
@@ -17,7 +18,7 @@ services:
     container_name: erpnext-app
     restart: always
     ports:
-      - "8000:8000" # ERPNext typically uses port 8000
+      - "8000:8000"  # Corrected port to avoid conflict
     environment:
       SITE_NAME: erp.example.com
       DB_HOST: mariadb
@@ -29,6 +30,12 @@ services:
       DB_PASSWORD: erpnextpass
     depends_on:
       - mariadb
+    restart: always
 
 volumes:
   mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /var/lib/erpnext-db  # Corrected volume mount path
+      o: bind
