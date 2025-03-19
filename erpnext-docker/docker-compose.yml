@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   mariadb:
@@ -10,6 +10,8 @@ services:
       MYSQL_DATABASE: erpnext
       MYSQL_USER: erpuser
       MYSQL_PASSWORD: erpnextpass
+    ports:
+      - "3306:3306"  # Expose the database for the ERP app
     volumes:
       - mariadb_data:/var/lib/mysql
 
@@ -20,10 +22,10 @@ services:
     container_name: erpnext-app
     restart: always
     ports:
-      - "8000:8000" # ERPNext uses port 8000 internally
+      - "8000:8000"  # ERPNext exposes on 8000
     environment:
       SITE_NAME: erp.example.com
-      MARIADB_HOST: mariadb
+      MARIADB_HOST: mariadb    # Hostname matches service name of mariadb
       DB_PORT: 3306
       DB_ROOT_USER: root
       DB_ROOT_PASSWORD: erpnextpass
@@ -35,5 +37,3 @@ services:
 
 volumes:
   mariadb_data:
-    # Using a named volume managed by Docker/Railway
-    # Removed the absolute path which won't work on Railway
