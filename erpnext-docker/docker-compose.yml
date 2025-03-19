@@ -18,7 +18,7 @@ services:
     container_name: erpnext-app
     restart: always
     ports:
-      - "8000:8000"  # Corrected port to avoid conflict
+      - "8000:80"  # Corrected port to avoid conflict
     environment:
       SITE_NAME: erp.example.com
       DB_HOST: mariadb
