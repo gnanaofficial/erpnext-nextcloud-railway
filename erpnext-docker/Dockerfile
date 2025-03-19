@@ -3,6 +3,9 @@ FROM frappe/erpnext-worker:v13
 
 WORKDIR /home/frappe/frappe-bench
 
+# Create frappe user and group if not already present
+RUN addgroup --system frappe && adduser --system --home /home/frappe --ingroup frappe frappe
+
 # Create the sites directory and add required files
 RUN mkdir -p sites && \
     echo "frappe" > sites/apps.txt && \
