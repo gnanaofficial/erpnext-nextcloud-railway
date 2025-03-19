@@ -3,8 +3,8 @@ FROM frappe/erpnext-worker:v13
 
 WORKDIR /home/frappe/frappe-bench
 
-# Create frappe user and group safely
-RUN groupadd -r frappe && useradd -r -m -d /home/frappe -g frappe frappe
+# Check if frappe user/group exists and create if not
+RUN id frappe || (groupadd -r frappe && useradd -r -m -d /home/frappe -g frappe frappe)
 
 # Create the sites directory and add required files
 RUN mkdir -p sites && \
