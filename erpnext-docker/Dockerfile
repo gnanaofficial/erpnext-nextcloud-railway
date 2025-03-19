@@ -1,3 +1,3 @@
-﻿FROM nextcloud:latest
-EXPOSE 80
-CMD ["apache2-foreground"]
+﻿FROM frappe/erpnext:latest
+EXPOSE 8000
+CMD ["bench", "start"]
