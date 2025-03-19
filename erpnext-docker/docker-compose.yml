@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   mariadb:
@@ -14,11 +14,11 @@ services:
       - mariadb_data:/var/lib/mysql
 
   erpnext:
-    image: frappe/erpnext
+    image: frappe/erpnext:latest
     container_name: erpnext-app
     restart: always
     ports:
-      - "8080:80"
+      - "8000:80"  # Corrected port to avoid conflict
     environment:
       SITE_NAME: erp.example.com
       DB_HOST: mariadb
@@ -30,6 +30,12 @@ services:
       DB_PASSWORD: erpnextpass
     depends_on:
       - mariadb
+    restart: always
 
 volumes:
   mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /var/lib/erpnext-db  # Corrected volume mount path
+      o: bind
