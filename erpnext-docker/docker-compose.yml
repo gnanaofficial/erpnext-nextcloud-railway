@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:10.5
+    container_name: erpnext-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: erpnextpass
+      MYSQL_DATABASE: erpnext
+      MYSQL_USER: erpuser
+      MYSQL_PASSWORD: erpnextpass
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  erpnext:
+    image: frappe/erpnext
+    container_name: erpnext-app
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      SITE_NAME: erp.example.com
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_ROOT_USER: root
+      DB_ROOT_PASSWORD: erpnextpass
+      DB_NAME: erpnext
+      DB_USER: erpuser
+      DB_PASSWORD: erpnextpass
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb_data:
